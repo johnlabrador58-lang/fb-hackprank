@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Security Alert</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120,219,255,0.3) 0%, transparent 50%);
+            animation: scan 4s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes scan {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+        .header {
+            background: linear-gradient(90deg, #1a1a1a, #2d2d2d);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1877f2;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .alert-box {
+            background: linear-gradient(145deg, #2a0d0d, #1a0000);
+            border: 2px solid #ff4444;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(255,68,68,0.3);
+        }
+        .alert-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff4444;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .warning-text {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #ffaaaa;
+        }
+        .countdown {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .countdown-circle {
+            width: 120px;
+            height: 120px;
+            border: 4px solid #ff4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            background: rgba(255,68,68,0.1);
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff4444;
+            animation: pulse-red 1.5s infinite;
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255,68,68,0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255,68,68,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,68,68,0); }
+        }
+        .data-leak {
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+        }
+        .data-label { color: #aaa; }
+        .data-value { color: #ff6666; font-weight: bold; }
+        .terminal {
+            background: #000;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 13px;
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+        .footer-warning {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,68,68,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+            color: #ffaaaa;
+        }
+        .hidden-prank { display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">facebook</div>
+        <div class="status-indicator"></div>
+    </div>
+
+    <div class="container">
+        <div class="alert-box">
+            <div class="alert-title">🔴 CRITICAL SECURITY BREACH 🔴</div>
+            <div class="warning-text">
+                Your account has been <strong>compromised</strong> by unauthorized access.<br>
+                Session hijacked from unknown IP address. Data extraction in progress.
+            </div>
+
+            <div class="countdown">
+                <div class="countdown-circle" id="countdown">60</div>
+                <div style="color: #ffaaaa; font-size: 16px;">DATA EXTRACTION TIMEOUT</div>
+            </div>
+
+            <div class="data-leak">
+                <div class="data-row"><span class="data-label">Email:</span> <span class="data-value" id="email">victim@example.com</span></div>
+                <div class="data-row"><span class="data-label">Phone:</span> <span class="data-value" id="phone">(555) 123-4567</span></div>
+                <div class="data-row"><span class="data-label">Friends:</span> <span class="data-value">1,247 contacts</span></div>
+                <div class="data-row"><span class="data-label">Photos:</span> <span class="data-value">892 files</span></div>
+                <div class="data-row"><span class="data-label">Status:</span> <span class="data-value">EXTRACTING...</span></div>
+            </div>
+
+            <div class="terminal" id="terminal">
+                Accessing database... OK
+                Dumping user table... 47% complete
+                Encrypting credentials... 
+                Notifying contacts... 23/1247 sent
+                WARNING: Local session terminated
+            </div>
+        </div>
+
+        <div class="footer-warning">
+            <strong>DO NOT CLOSE THIS WINDOW</strong><br>
+            Account recovery in progress. Contact support immediately.
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = 45; // Extended scare time
+        const countdownEl = document.getElementById('countdown');
+        const emailEl = document.getElementById('email');
+        const phoneEl = document.getElementById('phone');
+        const terminalEl = document.getElementById('terminal');
+
+        // Fake personalized data (you can edit these)
+        const fakeEmails = ['your.email@gmail.com', 'john.doe@outlook.com', 'friend@example.com'];
+        const fakePhones = ['(555) 000-1234', '(555) 111-2222', '(555) 333-4444'];
+        
+        emailEl.textContent = fakeEmails[Math.floor(Math.random() * fakeEmails.length)];
+        phoneEl.textContent = fakePhones[Math.floor(Math.random() * fakePhones.length)];
+
+        // Multiple alarm sounds
+        function playAlarm() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator1.frequency.value = 800;
+            oscillator2.frequency.value = 1000;
+            oscillator1.type = 'square';
+            oscillator2.type = 'square';
+            
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator1.start(audioContext.currentTime);
+            oscillator2.start(audioContext.currentTime + 0.1);
+            oscillator1.stop(audioContext.currentTime + 0.5);
+            oscillator2.stop(audioContext.currentTime + 0.6);
+        }
+
+        // Terminal animation
+        const terminalLines = [
+            "Transferring 2.4GB of private messages...",
+            "Uploading 892 photos to darkweb...",
+            "Password cracked: **********",
+            "Bank details accessed: **** **** **** 1234",
+            "2FA bypassed via SIM swap attack",
+            "All contacts receiving spam now...",
+            "Account sold on darkweb marketplace - $247"
+        ];
+        let lineIndex = 0;
+        function addTerminalLine() {
+            if (lineIndex < terminalLines.length) {
+                terminalEl.textContent += '\n' + terminalLines[lineIndex];
+                lineIndex++;
+                setTimeout(addTerminalLine, 2000);
+            }
+        }
+
+        // Start effects
+        window.onload = function() {
+            playAlarm();
+            setInterval(playAlarm, 8000);
+            addTerminalLine();
+            
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdownEl.textContent = timeLeft;
+                
+                if (timeLeft <= 10) {
+                    countdownEl.style.color = '#ff0000';
+                    countdownEl.style.fontSize = '42px';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    revealPrank();
+                }
+            }, 1000);
+        };
+
+        function revealPrank() {
+            document.body.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px; color: white; font-family: Arial;">
+                    <div style="font-size: 80px; margin-bottom: 30px;">😅</div>
+                    <h1 style="font-size: 48px; margin-bottom: 20px; color: #ffd700;">YOU GOT PRANKED!</h1>
+                    <p style="font-size: 28px; margin-bottom: 40px;">Your Facebook is SAFE 😜</p>
+                    <div style="font-size: 20px; opacity: 0.9; max-width: 500px;">
+                        Just a harmless HTML prank by your friend.<br>
+                        <strong>No accounts were harmed!</strong>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Prevent right-click and F12
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
